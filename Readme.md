@@ -21,22 +21,19 @@ To run this application on an emulator or a physical device, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-link>
-   cd <repository-folder>
+   git clone https://github.com/A-naise/Taskose-app.git
+   cd Taskose-app
 
 2. **Install Dependencies**: Make sure you have **Node.js** installed, then run:
    ```bash
    npm install
 
-3. **Run the App**:
-    For android:
-   ```bash
-   npm start
-   //then click press **a** on your keyboard 
-
-   //**or**
-
-   npx react-native run-android
-
+3. **Run the App(android)**:
+      ```bash
+      npm start
+      ```
+      then press **a** on your keyboard 
    
-   
+      **OR**
+      ```bash
+      npx react-native run-android
