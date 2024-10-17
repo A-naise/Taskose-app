@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function ViewAllProjects({ navigation }) {
@@ -29,212 +29,70 @@ export default function ViewAllProjects({ navigation }) {
   };
 
   return (
-    <View style={styles.container} className="mt-[40px]">
-      <View style={styles.header}>
+    <View className="flex-1 bg-white mt-10 p-5">
+      <View className="flex-row items-center justify-between mb-5">
         <TouchableOpacity onPress={() => navigation.goBack()} accessibilityLabel="Back">
           <Ionicons name="arrow-back-outline" size={24} color="#333" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>My Projects</Text>
-        <Ionicons name="search-outline" size={24} color="#333" style={styles.searchIcon} />
+        <Text className="text-lg font-bold text-gray-800">My Projects</Text>
+        <Ionicons name="search-outline" size={24} color="#333" />
       </View>
 
-      <View style={styles.filterContainer}>
-
-        <TouchableOpacity style={styles.dropdown} onPress={toggleFilterDropdown} accessibilityLabel="Filter Dropdown">
-          <Ionicons name="grid-outline" size={16} color="#808080" style={styles.dropdownIcon} />
-          <Text style={styles.dropdownText}>{selectedFilter}</Text>
+      <View className="flex-row items-center justify-between mb-2">
+        <TouchableOpacity className="flex-row items-center border border-gray-300 rounded-md p-2 flex-1 mr-2 bg-blue-50" onPress={toggleFilterDropdown} accessibilityLabel="Filter Dropdown">
+          <Ionicons name="grid-outline" size={16} color="#808080" className="mr-1" />
+          <Text className="text-sm text-gray-500 flex-1">{selectedFilter}</Text>
           <Ionicons name={filterVisible ? "chevron-up" : "chevron-down"} size={16} color="#808080" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.filterButton} onPress={() => console.log("Filter button pressed")} accessibilityLabel="Filter">
-            <Ionicons name="filter-outline" size={16} color="#808080" />
-            <Text style={styles.filterButtonText}>Filter</Text>
-          </TouchableOpacity>
+        <TouchableOpacity className="flex-row items-center bg-blue-50 p-2 rounded-md" onPress={() => console.log("Filter button pressed")} accessibilityLabel="Filter">
+          <Ionicons name="filter-outline" size={16} color="#808080" />
+          <Text className="text-sm text-gray-500 ml-1">Filter</Text>
+        </TouchableOpacity>
       </View>
 
-
       {filterVisible && (
-        <View style={styles.dropdownMenu}>
-          <TouchableOpacity onPress={() => handleFilterSelect("Board")} style={styles.dropdownItem}>
-            <Ionicons name="grid-outline" size={16} color="#808080" style={styles.dropdownItemIcon} />
-            <Text style={styles.dropdownItemText}>Board</Text>
+        <View className="absolute top-20 left-5 bg-white border border-gray-300 rounded-md shadow-lg z-10 w-11/12 max-h-24">
+          <TouchableOpacity onPress={() => handleFilterSelect("Board")} className="flex-row items-center p-3">
+            <Ionicons name="grid-outline" size={16} color="#808080" className="mr-2" />
+            <Text className="text-sm text-gray-500">Board</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleFilterSelect("List")} style={styles.dropdownItem}>
-            <Ionicons name="list-outline" size={16} color="#808080" style={styles.dropdownItemIcon} />
-            <Text style={styles.dropdownItemText}>List</Text>
+          <TouchableOpacity onPress={() => handleFilterSelect("List")} className="flex-row items-center p-3">
+            <Ionicons name="list-outline" size={16} color="#808080" className="mr-2" />
+            <Text className="text-sm text-gray-500">List</Text>
           </TouchableOpacity>
         </View>
       )}
 
+      <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 60 }} showsVerticalScrollIndicator={false}>
+        {projects.map(project => (
+          <TouchableOpacity key={project.id} className="mb-3 items-center" onPress={() => navigateToProject(project.name)}>
+            <Image source={project.image} className="w-full h-52 rounded-lg object-cover" />
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
 
-      <ScrollView style={styles.projectsList} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          {projects.map(project => (
-            <TouchableOpacity key={project.id} style={styles.projectItem} onPress={() => navigateToProject(project.name)}>
-              <Image source={project.image} style={styles.projectImage} />
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      <View style={styles.bottomBar}>
-          <TouchableOpacity style={styles.bottomIcon}>
+      <View className="absolute bottom-0 left-0 right-0 h-[60px] bg-white flex-row justify-around items-center shadow-md">
+          <TouchableOpacity>
             <Ionicons name="menu" size={24} color="#333" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.bottomIcon}>
+          <TouchableOpacity>
             <Ionicons name="create-outline" size={24} color="#333" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.plusButton} className="ml-[120px] mb-[15px]" onPress={() => console.log("Add button pressed")} accessibilityLabel="Add">
+          <TouchableOpacity className="w-[60px] h-[60px] rounded-full bg-[#1e90ff] flex items-center justify-center">
             <Ionicons name="add" size={32} color="#fff" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.bottomIcon}>
+          <TouchableOpacity>
             <Ionicons name="chatbubble-ellipses-outline" size={24} color="#333" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.bottomIcon}>
+          <TouchableOpacity>
             <Ionicons name="person-outline" size={24} color="#333" />
           </TouchableOpacity>
         </View>
-
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  searchIcon: {
-    marginLeft: 10,
-  },
-  filterContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  dropdown: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
-    flex: 1,
-    marginRight: 10,
-    backgroundColor: '#F0F8FF',
-  },
-  dropdownIcon: {
-    marginRight: 5,
-  },
-  dropdownText: {
-    fontSize: 14,
-    color: '#808080',
-    flex: 1,
-  },
-  filterButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F0F8FF',
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    marginLeft: 30, 
-  },
-  filterButtonText: {
-    fontSize: 14,
-    color: '#808080',
-    marginLeft: 5,
-  },
-  dropdownMenu: {
-    position: 'absolute',
-    top: 80, 
-    left: 20,
-    backgroundColor: '#fff',
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
-    elevation: 3,
-    zIndex: 1000,
-    width: '90%',
-    maxHeight: 100,
-  },
-  dropdownItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-  },
-  dropdownItemIcon: {
-    marginRight: 10,
-  },
-  dropdownItemText: {
-    fontSize: 14,
-    color: '#808080',
-  },
-  projectsList: {
-    flex: 1,
-  },
-  projectItem: {
-    marginBottom: 15,
-    alignItems: 'center',
-  },
-  projectImage: {
-    width: '100%',
-    height: 200,
-    borderRadius: 10,
-    resizeMode: 'cover',
-  },
-  projectName: {
-    marginTop: 5,
-    fontSize: 16,
-    color: '#333',
-    fontWeight: 'bold',
-  },
-  bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    elevation: 19, 
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  plusButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#1e90ff', 
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 20, 
-    alignSelf: 'center',
-    elevation: 5, 
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-  }
-});

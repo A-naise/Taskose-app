@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, SafeAreaView,Image,Text,ScrollView } from 'react-native';
+import { View, TextInput, TouchableOpacity, SafeAreaView, Image, Text, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-
 export default function App({ navigation }) {
-
+  
   const navigateToNotifications = () => {
     navigation.navigate('Notification'); 
   };
@@ -14,15 +13,15 @@ export default function App({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container} className="bg-[#1e90ff]">
+    <SafeAreaView className="flex-1 bg-[#1e90ff]">
       
-      <View style={styles.header} className="mt-[35px] p-4">
-        <View style={styles.profileGroup}>
+      <View className="flex-row justify-between items-center mt-[35px] p-4">
+        <View className="flex-row items-center">
           <Image
             source={require('../assets/jenn.png')}
-            style={styles.profileImage}
+            className="w-[44px] h-[45px] rounded-full"
           />
-          <View style={styles.greetingContainer}>
+          <View className="flex-col">
             <Text className="font-bold text-[13px] text-white ml-[10px]">Jennifer Lyine</Text>
             <Text className="font-thin text-[13px] text-white ml-[10px]"> Hi Jennifer, Good Morning</Text>
           </View>
@@ -32,221 +31,82 @@ export default function App({ navigation }) {
           <Ionicons name="menu" size={28} color="#fff" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={navigateToNotifications} accessibilityLabel="Notifications" >
+        <TouchableOpacity onPress={navigateToNotifications} accessibilityLabel="Notifications">
           <Ionicons name="notifications" size={28} color="#fff" />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.searchContainer} className="mt-[10px] w-[80%] ml-[20px] border border-gray-400 " >
-        <Ionicons name="search" size={20} color="white" style={styles.searchIcon}   />
+      <View className="mt-[10px] w-[80%] ml-[20px] border border-gray-400 flex-row items-center rounded-lg">
+        <Ionicons name="search" size={20} color="white" className="mr-2" />
         <TextInput
           placeholder="Find your task"
           placeholderTextColor="white"
-          style={styles.searchInput}
-          className="font-thin"
+          className="flex-1 font-thin text-white"
         />
       </View>
 
-      <View style={styles.projectsSection} className="w-full rounded-t-lg " >
-        <View style={styles.projectsHeader}>
-          <Text style={styles.projectsText}>Recent Projects</Text>
-          <TouchableOpacity onPress={navigateToViewAllProjects} accessibilityLabel="View All Projects" >
-            <Text style={styles.viewAllText} className="text-gray-400 font-bold">View All</Text>
+      <View className="bg-white flex-1 mt-7 p-4 rounded-t-lg">
+        <View className="flex-row justify-between items-center">
+          <Text className="text-[18px] font-bold text-[#333]">Recent Projects</Text>
+          <TouchableOpacity onPress={navigateToViewAllProjects} accessibilityLabel="View All Projects">
+            <Text className="text-gray-400 font-bold text-[16px]">View All</Text>
           </TouchableOpacity>
         </View>
 
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} className="mt-4">
-        
-        <TouchableOpacity style={styles.projectCard} onPress={() => navigation.navigate('Game')} accessibilityLabel="Game" >
-          <Image
-            source={require('../assets/game.png')} 
-            style={styles.projectImage}
-          />
-      
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.projectCard} onPress={() => navigation.navigate('Furniture')} accessibilityLabel="Furniture" >
-          <Image
-            source={require('../assets/furnite.png')} 
-            style={styles.projectImage}
-          />
+          <TouchableOpacity className="w-[440px] h-[270px] mr-3 bg-[#f9f9f9]" onPress={() => navigation.navigate('Game')} accessibilityLabel="Game">
+            <Image
+              source={require('../assets/game.png')}
+              className="w-full h-full object-cover"
+            />
+          </TouchableOpacity>
           
-        </TouchableOpacity>
-      </ScrollView>
+          <TouchableOpacity className="w-[440px] h-[270px] mr-3 bg-[#f9f9f9]" onPress={() => navigation.navigate('Furniture')} accessibilityLabel="Furniture">
+            <Image
+              source={require('../assets/furnite.png')}
+              className="w-full h-full object-cover"
+            />
+          </TouchableOpacity>
+        </ScrollView>
 
-      <View style={styles.tasksSection} className="mb-[80px]">
-          <View style={styles.tasksHeader}>
-            <Text style={styles.tasksText}>Today's Tasks</Text>
+        <View className="bg-white mb-[80px] rounded-t-lg">
+          <View className="flex-row justify-between items-center">
+            <Text className="text-[18px] font-bold text-[#333]">Today's Tasks</Text>
             <TouchableOpacity>
-              <Text style={styles.viewAllText} className="text-gray-400 font-bold">View All</Text>
+              <Text className="text-gray-400 font-bold">View All</Text>
             </TouchableOpacity>
           </View>
-   
-          <TouchableOpacity style={styles.taskCard}>
+
+          <TouchableOpacity className="rounded-lg bg-[#f9f9f9]">
             <Image
-              source={require('../assets/calendar.png')} 
-              style={styles.taskImage}
+              source={require('../assets/calendar.png')}
+              className="w-full h-[100px] object-cover"
             />
           </TouchableOpacity>
         </View>
 
+        <View className="absolute bottom-0 left-0 right-0 h-[60px] bg-white flex-row justify-around items-center shadow-md">
+          <TouchableOpacity>
+            <Ionicons name="menu" size={24} color="#333" />
+          </TouchableOpacity>
 
+          <TouchableOpacity>
+            <Ionicons name="create-outline" size={24} color="#333" />
+          </TouchableOpacity>
 
-      
-      <View style={styles.bottomBar}>
-        <TouchableOpacity>
-          <Ionicons name="menu" size={24} color="#333"  />
-        </TouchableOpacity>
+          <TouchableOpacity className="w-[60px] h-[60px] rounded-full bg-[#1e90ff] flex items-center justify-center">
+            <Ionicons name="add" size={32} color="#fff" />
+          </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Ionicons name="create-outline" size={24} color="#333" />
-        </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionicons name="chatbubble-ellipses-outline" size={24} color="#333" />
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.plusButton} className="ml-[120px] mb-[15px]">
-          <Ionicons name="add" size={32} color="#fff" />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Ionicons name="chatbubble-ellipses-outline" size={24} color="#333" />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Ionicons name="person-outline" size={24} color="#333" />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity>
+            <Ionicons name="person-outline" size={24} color="#333" />
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', 
-    alignItems: 'center'
- 
-  }, profileGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  profileImage: {
-    width: 44,
-    height: 45,
-    borderRadius: 20, 
-  
-  },
-  greetingContainer: {
-    flexDirection: 'column',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    height: 40,
-
-  },
-  searchIcon: {
-    marginRight: 10, 
-  },
-  searchInput: {
-    flex: 1, 
-    fontSize: 13,
-    color: '#000',
-  },
-  projectsSection: {
-    backgroundColor: '#fff',
-    flex: 1,  
-    marginTop: 30,
-    padding: 15,
-    width: '100%',  
-    alignSelf: 'stretch',  
-  },
-  projectsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', 
-    alignItems: 'center',
-  },
-  projectsText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  viewAllText: {
-    fontSize: 16,
-   
-  },
-  projectCard: {
-    width: 440,
-    height: 270,
-    marginRight: 12,
-    backgroundColor: '#f9f9f9',
-  },
-  projectImage: {
-    width: 440,
-    height: 270,
-    resizeMode: 'cover',  
-  },
-  bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    elevation: 19, 
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  plusButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#1e90ff', 
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 15, 
-    alignSelf: 'center',
-    elevation: 5, 
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-  },
-  tasksSection: {
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    width: '100%',
-    alignSelf: 'stretch',
-  },
-  tasksHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', 
-    alignItems: 'center',
-  },
-   tasksText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  taskCard: {
-    borderRadius: 10,
-    backgroundColor: '#f9f9f9',
-  },
-  taskImage: {
-    width: '100%',
-    height: 100,
-    resizeMode: 'cover',
-  },
-});
