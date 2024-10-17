@@ -32,3 +32,11 @@ To run this application on an emulator or a physical device, follow these steps:
     For android:
    ```bash
    npm start
+   //then click press **a** on your keyboard 
+
+   //**or**
+
+   npx react-native run-android
+
+   
+   
